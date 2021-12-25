@@ -1,0 +1,24 @@
+.container {
+    flex-direction: column;
+}
+
+.files {
+    height: 95vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logout {
+    width: 100px;
+    height: 35px;
+    border: none;
+    outline: none;
+    background: tomato;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
