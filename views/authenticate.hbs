@@ -1,12 +1,21 @@
-<div class="login">
-    <form action="/login" method="POST">
-        <input type="text" name="loginValue" required placeholder="Enter here your unique id or password"/>
-        <button>Log In</button>
-    </form>
-</div>
 <div class="signup">
+    <h1>Sign up</h1>
     <form action="/signup" method="POST">
-        <input type="text" name="signupValue" required placeholder="Think up your unique id or password"/>
+        <input type="text" name="name" required placeholder="Enter your name"/>
+        <input type="password" name="password" required placeholder="Enter your password"/>
+        <input type="email" name="email" required placeholder="Enter your email"/>
+        <input type="text" name="location" required placeholder="Enter your location"/>
+        <input type="text" name="workname" required placeholder="Enter your work name"/>
         <button>Sign Up</button>
     </form>
 </div>
+<div class="signin">
+    <h1>Sign in</h1>
+    <form action="/signin" method="POST">
+        <input type="text" name="name" required placeholder="Enter your name"/>
+        <input type="password" name="password" required placeholder="Enter your password"/>
+        <button>Sign In</button>
+    </form>
+</div>
+
+<script src="./authenticate.js"></script>

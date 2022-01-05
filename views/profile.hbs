@@ -1,0 +1,22 @@
+<div class="profile">
+    <div class="header">
+        <h2>{{name}}</h2>
+        <span>{{workname}} ‧</span><br>
+        <span>{{location}} ‧</span>
+    </div>
+    <form action="/updateuser" method="POST">
+        <div class="work_name">
+            <input type="text" name="work_name" placeholder="work name" value={{workName}}>
+        </div>
+        <div class="experience">
+            <input type="text" name="experience" placeholder="experience" value={{experience}}>
+        </div>
+        <div class="description">
+            <textarea name="description" placeholder="A few words about you">{{description}}</textarea>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    <form action="/logout" method="POST">
+        <button class="logout">Log out</button>
+    </form>
+</div>

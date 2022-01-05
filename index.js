@@ -9,14 +9,16 @@ const express_session = require("express-session");
 const MongoStore = require("connect-mongodb-session")(express_session);
 require('dotenv').config();
 
+let app = express();
+
 const mainRoute = require('./routes/main')
 const authRoute = require('./routes/authenticate')
+const profileRoute = require('./routes/profile')
 
 const isUserInSystemMiddleware = require('./middlewares/auth')
 
 const PORT = process.env.PORT || 3000;
 
-let app = express();
 
 const hbs = exhbs.create({
     defaultLayout: "mainLayout",
@@ -51,8 +53,10 @@ app.use(
 
 app.use(mainRoute)
 app.use(authRoute)
+app.use(profileRoute)
 
 app.use(isUserInSystemMiddleware)
+
 
 async function start() {
     try {

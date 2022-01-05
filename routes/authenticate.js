@@ -1,61 +1,81 @@
 const router = require('express').Router()
 const User = require('../models/User')
-const closeAuthRoutes = require('../middlewares/closeAuthRoutes')
+const bcrypt = require('bcrypt')
+const closeAuthRoute = require('../middlewares/closeAuthRoutes')
 
-router.get('/auth', closeAuthRoutes, (req, res) => {
+router.get('/auth', closeAuthRoute, (req, res) => {
     res.render('authenticate', {
         cssFileName: 'authenticate',
         title: 'Auth page'
     })
 })
 
-router.post('/signup', closeAuthRoutes, async (req, res) => {
+router.post('/signup', closeAuthRoute, async (req, res) => {
     try {
-        const { signupValue } = req.body;
-        const validatedValue = signupValue.trim()
+        const { name, password, email, location, workname } = req.body;
 
-        if(!validatedValue) return res.redirect('/auth')
+        const nameCandidate = await User.findOne({ name })
+        const emailCandidate = await User.findOne({ email })
 
-        const isValueExist = await User.findOne({ uniqueValue: validatedValue })
+        if (nameCandidate || emailCandidate) {
+            return res.redirect('/auth')
+        }
+        else {
+            const hashPassword = await bcrypt.hash(password, 10);
+            const user = new User({
+                name,
+                password: hashPassword,
+                email,
+                location,
+                workName: workname
+            });
 
-        if (isValueExist) return res.redirect('/auth')
+            req.session.user = user;
+            req.session.isAuth = true;
+            req.session.save(e => {
+                if (e) throw new Error(e)
+            })
 
-        const newUser = await new User({
-            uniqueValue: validatedValue
-        })
-
-        req.session.user = newUser;
-        req.session.isAuth = true;
-        req.session.save(e => {
-            if (e) errorLogger.serverError(res, e)
-        })
-
-        await newUser.save()
-
-        res.redirect('/')
+            await user.save();
+            res.redirect(`/`);
+        }
     }
-    catch(e) {
+    catch (e) {
         throw new Error(e)
     }
 })
 
-router.post('/login', closeAuthRoutes, async (req, res) => {
+router.post('/signin', closeAuthRoute, async (req, res) => {
     try {
-        const { loginValue } = req.body;
-        const validatedValue = loginValue.trim()
+        const { name, password } = req.body;
+        const candidate = await User.findOne({ name });
 
-        const candidate = await User.findOne({ uniqueValue: validatedValue })
+        if(candidate) {
+            const areSame = await bcrypt.compare(password, candidate.password)
+            console.log(candidate, areSame)
 
-        if (!candidate) return res.redirect('/auth')
-
-        req.session.user = candidate;
-            req.session.isAuth = true;
-            req.session.save(e => {
-                if(e) throw new Error(e)
-                res.redirect('/auth')
-            });
+            if(areSame) {
+                req.session.user = candidate;
+                req.session.isAuth = true;
+                req.session.save(e => {
+                    if (e) throw new Error(e)
+                    try {
+                        res.redirect('/')
+                    }
+                    catch (e) {
+                        throw new Error(e)
+                    }
+                });
+            }
+            else {
+                return res.redirect('/auth')
+            }
+        }
+        else {
+            return res.redirect('/auth')
+        }
     }
-    catch(e) {
+    catch (e) {
         throw new Error(e)
     }
 })
@@ -63,11 +83,11 @@ router.post('/login', closeAuthRoutes, async (req, res) => {
 router.post('/logout', (req, res) => {
     try {
         req.session.destroy(err => {
-            if(err) throw new Error(err)
+            if (err) throw new Error(err)
         })
-        res.redirect('/')
+        res.redirect('/auth')
     }
-    catch(e) {
+    catch (e) {
         throw new Error(e)
     }
 })
