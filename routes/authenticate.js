@@ -12,7 +12,7 @@ router.get('/auth', closeAuthRoute, (req, res) => {
 
 router.post('/signup', closeAuthRoute, async (req, res) => {
     try {
-        const { name, password, email, location, workname } = req.body;
+        const { name, password, email, location, workname, experience } = req.body;
 
         const nameCandidate = await User.findOne({ name })
         const emailCandidate = await User.findOne({ email })
@@ -27,7 +27,8 @@ router.post('/signup', closeAuthRoute, async (req, res) => {
                 password: hashPassword,
                 email,
                 location,
-                workName: workname
+                workName: workname,
+                experience
             });
 
             req.session.user = user;

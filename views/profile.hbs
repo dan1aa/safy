@@ -1,18 +1,21 @@
 <div class="profile">
     <div class="header">
-        <h2>{{name}}</h2>
-        <span>{{workname}} ‧</span><br>
-        <span>{{location}} ‧</span>
+        <div>
+            <h2>{{name}}</h2>
+            <span>{{workname}} ‧</span>
+            <span>{{experience}} year(s) of experience ‧</span>
+            <span>{{location}} ‧</span>
+        </div>
     </div>
     <form action="/updateuser" method="POST">
         <div class="work_name">
-            <input type="text" name="work_name" placeholder="work name" value={{workName}}>
+            <input type="text" name="work_name" placeholder="work name" class="workname" value={{workname}}>
         </div>
         <div class="experience">
-            <input type="text" name="experience" placeholder="experience" value={{experience}}>
+            <input type="text" name="experience" placeholder="experience (in years)" class="experience" value={{experience}}>
         </div>
         <div class="description">
-            <textarea name="description" placeholder="A few words about you">{{description}}</textarea>
+            <textarea name="description" placeholder="A few words about you" class="description">{{description}}</textarea>
         </div>
         <button type="submit">Save</button>
     </form>
@@ -20,3 +23,4 @@
         <button class="logout">Log out</button>
     </form>
 </div>
+<script src="profile.js"></script>
