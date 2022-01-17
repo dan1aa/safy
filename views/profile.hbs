@@ -7,15 +7,13 @@
             <span>{{location}} ‧</span>
         </div>
     </div>
-    <form action="/updateuser" method="POST">
-        <div class="work_name">
+    <form action="/updateuser" method="POST" class="update_user_form">
+        <div>
             <input type="text" name="work_name" placeholder="work name" class="workname" value={{workname}}>
-        </div>
-        <div class="experience">
-            <input type="text" name="experience" placeholder="experience (in years)" class="experience" value={{experience}}>
-        </div>
-        <div class="description">
-            <textarea name="description" placeholder="A few words about you" class="description">{{description}}</textarea>
+            <input type="text" name="experience" placeholder="experience (in years)" class="experience"
+                value={{experience}}>
+            <textarea name="description" placeholder="A few words about you"
+                class="description">{{description}}</textarea>
         </div>
         <button type="submit">Save</button>
     </form>

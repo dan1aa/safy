@@ -5,7 +5,6 @@ router.get('/', (req, res) => {
         cssFileName: 'main',
         title: 'Main page'
     })
-    console.log(req.session.isAuth)
 })
 
 

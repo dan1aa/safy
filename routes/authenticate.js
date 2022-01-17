@@ -53,7 +53,6 @@ router.post('/signin', closeAuthRoute, async (req, res) => {
 
         if(candidate) {
             const areSame = await bcrypt.compare(password, candidate.password)
-            console.log(candidate, areSame)
 
             if(areSame) {
                 req.session.user = candidate;
