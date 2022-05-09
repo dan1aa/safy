@@ -9,16 +9,19 @@
     </div>
     <form action="/updateuser" method="POST" class="update_user_form">
         <div>
-            <input type="text" name="work_name" placeholder="work name" class="workname" value={{workname}}>
+            <label for="skills">Your skills</label>
+            <input type="text" name="skills" placeholder="your skills" class="workname" value={{workname}}>
+            <label for="skills">Your experience</label>
             <input type="text" name="experience" placeholder="experience (in years)" class="experience"
                 value={{experience}}>
+            <label for="description">Your description</label>
             <textarea name="description" placeholder="A few words about you"
                 class="description">{{description}}</textarea>
         </div>
-        <button type="submit">Save</button>
+        <button type="submit" class="save_changes_button">Save</button>
     </form>
     <form action="/logout" method="POST">
-        <button class="logout">Log out</button>
+        <button class="logout_button">Log out</button>
     </form>
 </div>
 <script src="profile.js"></script>

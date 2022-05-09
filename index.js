@@ -15,7 +15,6 @@ const mainRoute = require('./routes/main')
 const authRoute = require('./routes/authenticate')
 const profileRoute = require('./routes/profile')
 
-const isUserInSystemMiddleware = require('./middlewares/auth')
 
 const PORT = process.env.PORT || 3000;
 
@@ -55,7 +54,6 @@ app.use(mainRoute)
 app.use(authRoute)
 app.use(profileRoute)
 
-app.use(isUserInSystemMiddleware)
 
 
 async function start() {

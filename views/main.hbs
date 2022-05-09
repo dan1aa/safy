@@ -2,7 +2,13 @@
     <div class="logo">
         <span>safy</span>
     </div>
+    {{#if isUserAuthenticated}}
     <a href="/profile" class="user_link">
         Your profile
     </a>
+    {{else}}
+    <a href="/auth" class="auth_link">
+        Authenticate
+    </a>
+    {{/if}}
 </header>

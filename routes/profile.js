@@ -21,13 +21,13 @@ router.get('/profile', onlyAuthRoute, async (req, res) => {
 })
 
 router.post('/updateuser', async (req, res) => {
-    const { work_name, experience, description } = req.body;
+    const { skills, experience, description } = req.body;
     const { name } = req.session.user;
 
     const currentUser = await User.findOne({ name })
     
     await currentUser.updateOne({
-        workName: work_name,
+        workName: skills,
         experience,
         description
     })

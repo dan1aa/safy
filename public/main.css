@@ -2,7 +2,7 @@
     flex-direction: column;
 }
 
-.user_link {
+.user_link, .auth_link {
     text-decoration: none;
     color: black;
 }
